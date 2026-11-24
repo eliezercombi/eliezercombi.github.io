@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tally — invoices that settle in stablecoins</title>
+  <meta name="description" content="Demo landing page: send an invoice, get paid in USDT or USDC in minutes, keep clean books. Concept product, built as a portfolio piece.">
+  <meta name="theme-color" content="#f4f1ea">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav__in">
+      <a class="logo" href="#top" aria-label="Tally home">
+        <svg viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8"/><path d="M8 9.5h12M14 9.5v10M10.5 19.5h7"/></svg>
+        Tally
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn--ink btn--sm" href="#start">Start free</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero__in">
+        <div class="hero__copy">
+          <p class="eyebrow reveal"><span class="dot"></span> Now with USDC on Base and USDT on Tron</p>
+          <h1 class="reveal">Send the invoice.<br><em>Get paid by lunch.</em></h1>
+          <p class="lede reveal">Tally turns an invoice into a payment link your client can settle in stablecoins from any wallet. No bank holidays, no 4% wire fees, no chasing.</p>
+          <form class="signup reveal" id="start" novalidate>
+            <label class="sr" for="email">Work email</label>
+            <input id="email" type="email" inputmode="email" placeholder="you@studio.com" autocomplete="email" required>
+            <button class="btn btn--ink" type="submit">Create first invoice</button>
+            <p class="signup__msg" id="signupMsg" role="status" aria-live="polite">Free for your first five invoices. No card.</p>
+          </form>
+          <ul class="proof reveal" aria-label="Key numbers">
+            <li><strong data-count="38" data-suffix=" min">0</strong><span>median time to paid</span></li>
+            <li><strong data-count="0.4" data-decimals="1" data-suffix="%">0</strong><span>flat fee per invoice</span></li>
+            <li><strong data-count="61">0</strong><span>countries served</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__art reveal" aria-hidden="true">
+          <div class="glow"></div>
+          <article class="invoice">
+            <header class="invoice__head">
+              <div><span class="invoice__label">Invoice</span><span class="invoice__no">#2026-114</span></div>
+              <span class="status" id="status">Awaiting payment</span>
+            </header>
+            <p class="invoice__to">Northwind Labs · Brand refresh, phase 2</p>
+            <ul class="invoice__rows">
+              <li><span>Identity system</span><span>2,400.00</span></li>
+              <li><span>Landing page design</span><span>1,850.00</span></li>
+              <li><span>Motion pack</span><span>600.00</span></li>
+            </ul>
+            <div class="invoice__total"><span>Total due</span><strong>4,850.00 <small>USDC</small></strong></div>
+            <div class="invoice__bar"><span id="bar"></span></div>
+            <footer class="invoice__foot"><span id="hash">Waiting for the network…</span><span id="eta">~1 block</span></footer>
+          </article>
+          <div class="chip chip--a"><svg viewBox="0 0 20 20"><path d="m4 10.5 4 4 8-9"/></svg> Reconciled automatically</div>
+          <div class="chip chip--b"><span class="tick"></span> Paid in 00:38</div>
+        </div>
+      </div>
+
+      <div class="wrap marquee reveal" aria-label="Teams that invoice with Tally">
+        <span>Trusted by independent studios</span>
+        <ul>
+          <li>Halcyon</li><li>Orbit &amp; Co</li><li>Fieldnote</li><li>Kiln</li><li>Parallel</li><li>Sundial</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <p class="kicker reveal">How it works</p>
+        <h2 class="reveal">Three steps, one of them is yours.</h2>
+        <ol class="steps">
+          <li class="reveal"><span class="steps__n">01</span><h3>Write the invoice</h3><p>Line items, due date, your tax details. Templates remember everything after the first one.</p></li>
+          <li class="reveal"><span class="steps__n">02</span><h3>Share one link</h3><p>Your client opens it, picks a network and pays from the wallet they already use. No sign-up on their side.</p></li>
+          <li class="reveal"><span class="steps__n">03</span><h3>Books close themselves</h3><p>Tally matches the transfer, marks the invoice paid and exports a clean ledger for your accountant.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section--tint" id="features">
+      <div class="wrap">
+        <p class="kicker reveal">Features</p>
+        <h2 class="reveal">Everything between “sent” and “settled”.</h2>
+        <div class="bento">
+          <article class="tile tile--wide reveal">
+            <h3>Any wallet, six networks</h3>
+            <p>Ethereum, Base, Arbitrum, Polygon, Solana and Tron. The payer chooses, you receive the same stablecoin every time.</p>
+            <div class="nets" aria-hidden="true"><span>ETH</span><span>BASE</span><span>ARB</span><span>POL</span><span>SOL</span><span>TRX</span></div>
+          </article>
+          <article class="tile reveal">
+            <h3>Reminders that stay polite</h3>
+            <p>Scheduled nudges before and after the due date, written like a person wrote them.</p>
+          </article>
+          <article class="tile reveal">
+            <h3>Rates locked at send</h3>
+            <p>Quote in dollars, euros or pounds. The stablecoin amount is fixed when the invoice goes out.</p>
+          </article>
+          <article class="tile tile--dark reveal">
+            <h3>Non-custodial by design</h3>
+            <p>Funds move from your client’s wallet straight to yours. Tally never holds a cent.</p>
+            <svg class="tile__mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6 54 14v16c0 14-9 23-22 28C19 53 10 44 10 30V14z"/><path d="m23 32 6.5 6.5L42 26"/></svg>
+          </article>
+          <article class="tile reveal">
+            <h3>Retainers on autopilot</h3>
+            <p>Recurring invoices go out on schedule and settle the same way, month after month.</p>
+          </article>
+          <article class="tile tile--full reveal">
+            <div>
+              <h3>Exports your accountant will not send back</h3>
+              <p>CSV, PDF and a tax-year summary with transaction hashes, counterparties and fiat values at settlement.</p>
+            </div>
+            <div class="ledger" aria-hidden="true">
+              <div><span>12 Nov</span><span>Northwind Labs</span><span>+4,850.00</span></div>
+              <div><span>09 Nov</span><span>Kiln Studio</span><span>+1,200.00</span></div>
+              <div><span>03 Nov</span><span>Fieldnote</span><span>+760.00</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="wrap">
+        <p class="kicker reveal">Pricing</p>
+        <h2 class="reveal">Pay when you get paid.</h2>
+        <div class="plans">
+          <article class="plan reveal">
+            <h3>Solo</h3>
+            <p class="plan__price"><strong>0.4%</strong> per paid invoice</p>
+            <p class="plan__note">Capped at $20 per invoice. First five are free.</p>
+            <ul><li>Unlimited clients</li><li>All six networks</li><li>Reminders and exports</li></ul>
+            <a class="btn btn--line" href="#start">Start free</a>
+          </article>
+          <article class="plan plan--featured reveal">
+            <span class="plan__tag">For teams</span>
+            <h3>Studio</h3>
+            <p class="plan__price"><strong>$29</strong> per month</p>
+            <p class="plan__note">No per-invoice fee. Up to ten seats.</p>
+            <ul><li>Everything in Solo</li><li>Approvals and roles</li><li>Multi-wallet payouts</li><li>Accounting integrations</li></ul>
+            <a class="btn btn--lime" href="#start">Try Studio for 30 days</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tint" id="faq">
+      <div class="wrap wrap--narrow">
+        <p class="kicker reveal">FAQ</p>
+        <h2 class="reveal">Questions clients ask us first.</h2>
+        <div class="faq reveal">
+          <details open><summary>Does my client need a Tally account?</summary><p>No. They open the link, connect or scan with their wallet and pay. The whole thing takes about a minute.</p></details>
+          <details><summary>What if they send the wrong amount?</summary><p>Underpayments keep the invoice open with the balance shown. Overpayments are flagged so you can refund or credit them.</p></details>
+          <details><summary>Can I still accept a bank transfer?</summary><p>Yes. Add your bank details as a second option and mark the invoice paid manually when the money lands.</p></details>
+          <details><summary>Is this a real product?</summary><p>No. Tally is a concept made for this page, which is a design and front-end portfolio piece.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap cta__in reveal">
+        <h2>Your next invoice could be paid today.</h2>
+        <a class="btn btn--lime" href="#start">Create first invoice</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <span>© 2026 Tally. A concept page, not a real service.</span>
+      <span>Hand-written HTML, CSS and 4 KB of JavaScript.</span>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
