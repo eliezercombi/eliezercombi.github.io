@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Cpath d='M4 3.5 22 22.5' stroke='%235b93ff' stroke-width='4.2' stroke-linecap='round'/%3E%3Cpath d='M22 3.5 13.9 12M4 22.5l5.2-5.5' stroke='%23b7f13d' stroke-width='4.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>YieldlyX: homepage direction (concept)</title>
+<meta name="description" content="A design direction for the YieldlyX homepage: dark and light themes from one token set, no flash on load, under 60 KB.">
+<script>
+/* Runs before first paint: saved choice first, then the system preference. No flash on load. */
+(function () {
+  var theme = 'dark';
+  try {
+    var saved = localStorage.getItem('yx-theme');
+    theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  } catch (e) {}
+  document.documentElement.dataset.theme = theme;
+})();
+</script>
+<style>
+/* ---------- tokens: every colour on the page comes from here ---------- */
+:root {
+  color-scheme: dark;
+  --bg: #08090a;
+  --bg-soft: #0c0e10;
+  --surface: #111417;
+  --surface-2: #161a1e;
+  --line: #1f2429;
+  --line-strong: #2d343b;
+  --text: #f3f5f6;
+  --muted: #a3abb3;
+  --faint: #6f7780;
+  --accent: #b7f13d;
+  --accent-ink: #0d1503;
+  --accent-text: #b7f13d;
+  --accent-wash: rgba(183, 241, 61, .10);
+  --blue: #5b93ff;
+  --glow: rgba(183, 241, 61, .16);
+  --grid: rgba(255, 255, 255, .035);
+  --shadow: 0 1px 0 rgba(255, 255, 255, .05) inset, 0 30px 60px -40px rgba(0, 0, 0, .9);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --wrap: 1120px;
+  --sans: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --display: "Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fafaf7;
+  --bg-soft: #f2f3ee;
+  --surface: #ffffff;
+  --surface-2: #f6f7f2;
+  --line: #e2e5dc;
+  --line-strong: #cdd2c4;
+  --text: #0f1214;
+  --muted: #4a5259;
+  --faint: #7b838b;
+  --accent: #b2ee34;
+  --accent-ink: #0d1503;
+  --accent-text: #3b6500;
+  --accent-wash: rgba(120, 180, 0, .12);
+  --blue: #1f5fe0;
+  --glow: rgba(160, 220, 40, .30);
+  --grid: rgba(15, 18, 20, .045);
+  --shadow: 0 1px 2px rgba(15, 18, 20, .05), 0 24px 50px -36px rgba(15, 18, 20, .35);
+}
+
+/* ---------- base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; border-radius: 6px; }
+.wrap { width: min(100% - 40px, var(--wrap)); margin-inline: auto; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--accent); color: var(--accent-ink); padding: 8px 14px; border-radius: 8px; z-index: 50; }
+.skip:focus { left: 12px; }
+.eyebrow { font: 600 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-text); }
+h1, h2 { font-family: var(--display); font-weight: 650; letter-spacing: -.035em; line-height: 1.04; text-wrap: balance; }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); margin-top: 14px; }
+h3 { font: 600 1.02rem/1.3 var(--sans); letter-spacing: -.01em; }
+.lede { color: var(--muted); font-size: clamp(1.02rem, 1.4vw, 1.16rem); max-width: 56ch; }
+section { padding: clamp(64px, 9vw, 112px) 0; border-top: 1px solid var(--line); }
+.btn { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 20px; border-radius: 999px; font-weight: 600; font-size: .96rem; border: 1px solid transparent; cursor: pointer; transition: transform .15s ease, background-color .15s ease, border-color .15s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-ghost { border-color: var(--line-strong); background: var(--surface); }
+.btn-ghost:hover { border-color: var(--faint); }
+.btn svg { width: 16px; height: 16px; }
+
+/* ---------- concept ribbon ---------- */
+.ribbon { background: var(--surface-2); border-bottom: 1px solid var(--line); font-size: .82rem; color: var(--muted); }
+.ribbon .wrap { display: flex; gap: 12px; justify-content: space-between; align-items: center; min-height: 38px; flex-wrap: wrap; padding-block: 6px; }
+.ribbon b { color: var(--text); font-weight: 600; }
+.ribbon a { color: var(--accent-text); font-weight: 600; white-space: nowrap; }
+
+/* ---------- header ---------- */
+header { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); border-bottom: 1px solid var(--line); }
+.bar { display: flex; align-items: center; gap: 28px; height: 66px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; font: 650 1.08rem/1 var(--display); letter-spacing: -.02em; }
+.logo svg { width: 26px; height: 26px; }
+nav.main { display: flex; gap: 4px; margin-left: auto; }
+nav.main a { padding: 8px 12px; border-radius: 8px; color: var(--muted); font-size: .94rem; font-weight: 500; }
+nav.main a:hover { color: var(--text); background: var(--surface); }
+.tools { display: flex; align-items: center; gap: 10px; }
+.theme { width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); display: grid; place-items: center; cursor: pointer; }
+.theme svg { width: 18px; height: 18px; }
+.theme .sun { display: none; }
+:root[data-theme="light"] .theme .sun { display: block; }
+:root[data-theme="light"] .theme .moon { display: none; }
+.bar .btn { height: 42px; }
+
+/* ---------- hero ---------- */
+.hero { border-top: 0; padding-top: clamp(56px, 8vw, 104px); position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; inset: 0; background:
+    radial-gradient(60% 55% at 78% 30%, var(--glow), transparent 70%),
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 100% 56px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 56px 100%;
+  -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); pointer-events: none; }
+.hero .wrap { position: relative; display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+h1 { font-size: clamp(3rem, 7.2vw, 5.4rem); margin: 18px 0 22px; }
+h1 em { font-style: normal; color: var(--accent-text); }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.proof { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+.proof div { display: grid; gap: 2px; }
+.proof strong { font: 650 1.5rem/1.1 var(--display); letter-spacing: -.03em; }
+.proof span { color: var(--faint); font-size: .86rem; }
+
+/* delivery board: the hero visual, built from the studio's own delivery model */
+.board { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 20px; box-shadow: var(--shadow); padding: 20px; }
+.board-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.board-head b { font-weight: 600; font-size: .95rem; }
+.pill { display: inline-flex; align-items: center; gap: 7px; font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); background: var(--accent-wash); padding: 7px 10px; border-radius: 999px; }
+.pill i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+.steps { display: grid; }
+.steps li { display: grid; grid-template-columns: 26px 1fr auto; gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.steps li:last-child { border-bottom: 0; }
+.dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line-strong); display: grid; place-items: center; }
+.done .dot { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.done .dot svg { width: 12px; height: 12px; }
+.now .dot { border-color: var(--accent-text); }
+.now .dot::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-text); }
+.steps b { font-weight: 600; font-size: .95rem; display: block; }
+.steps small { color: var(--faint); font-size: .82rem; }
+.steps time { font: 500 11px/1 var(--mono); color: var(--faint); letter-spacing: .04em; text-transform: uppercase; }
+.todo b { color: var(--muted); }
+.meter { grid-column: 2 / -1; height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; margin-top: -4px; }
+.meter i { display: block; width: 62%; height: 100%; background: var(--accent-text); border-radius: 4px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid var(--line); }
+.chips span { font-size: .8rem; color: var(--muted); border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 5px 11px; }
+
+/* ---------- capabilities ---------- */
+.head { display: grid; gap: 14px; margin-bottom: clamp(32px, 5vw, 56px); }
+.caps { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--line); gap: 1px; }
+.caps li { background: var(--surface); padding: 22px 20px 24px; display: grid; gap: 6px; align-content: start; transition: background-color .15s ease; }
+.caps li:hover { background: var(--surface-2); }
+.caps i { font: 500 11px/1 var(--mono); color: var(--faint); font-style: normal; letter-spacing: .06em; margin-bottom: 10px; }
+.caps p { color: var(--muted); font-size: .92rem; line-height: 1.45; }
+
+/* ---------- use cases ---------- */
+.soft { background: var(--bg-soft); }
+.cases { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.case { grid-column: span 2; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 10px; align-content: start; box-shadow: var(--shadow); }
+.case.wide { grid-column: span 3; padding: 30px; min-height: 176px; }
+.case.wide h3 { font: 650 1.5rem/1.15 var(--display); letter-spacing: -.03em; }
+.case p { color: var(--muted); font-size: .95rem; }
+.case .tag { justify-self: start; font: 600 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent-text); background: var(--accent-wash); padding: 6px 9px; border-radius: 6px; margin-bottom: 6px; }
+.case:nth-child(n+6) { grid-column: span 3; }
+
+/* ---------- vision ---------- */
+.vision .wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+.vision blockquote { margin: 0; display: grid; gap: 22px; font: 500 clamp(1.25rem, 2.3vw, 1.75rem)/1.38 var(--display); letter-spacing: -.02em; }
+.vision blockquote p:nth-child(2) { color: var(--muted); }
+.vision blockquote p:last-child { padding-left: 20px; border-left: 3px solid var(--accent); }
+
+/* ---------- delivery ---------- */
+.flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; counter-reset: step; }
+.flow li { position: relative; padding: 28px 22px 0 0; border-top: 1px solid var(--line-strong); }
+.flow li::before { content: ""; position: absolute; top: -6px; left: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg); }
+.flow time { font: 600 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent-text); }
+.flow h3 { font: 650 1.3rem/1.2 var(--display); letter-spacing: -.03em; margin: 10px 0 6px; }
+.flow p { color: var(--muted); font-size: .93rem; }
+.note { margin-top: 36px; color: var(--faint); font-size: .92rem; }
+.note a { color: var(--accent-text); font-weight: 600; }
+
+/* ---------- faq ---------- */
+.faq .wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(28px, 6vw, 80px); align-items: start; }
+.faq .side { position: sticky; top: 100px; display: grid; gap: 16px; justify-items: start; }
+.qa { border-top: 1px solid var(--line); }
+details.q { border-bottom: 1px solid var(--line); }
+details.q summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 20px; align-items: center; padding: 20px 0; font-weight: 600; font-size: 1.02rem; }
+details.q summary::-webkit-details-marker { display: none; }
+details.q summary::after { content: ""; flex: none; width: 12px; height: 12px; border-right: 2px solid var(--faint); border-bottom: 2px solid var(--faint); transform: rotate(45deg) translate(-3px, -3px); transition: transform .2s ease; }
+details.q[open] summary::after { transform: rotate(-135deg) translate(-3px, -3px); }
+details.q p { color: var(--muted); padding: 0 40px 22px 0; max-width: 68ch; }
+details.q p a { color: var(--accent-text); font-weight: 600; }
+
+/* ---------- closing call ---------- */
+.close .card { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 24px; padding: clamp(32px, 6vw, 64px); display: grid; gap: 18px; justify-items: start; position: relative; overflow: hidden; box-shadow: var(--shadow); }
+.close .card::after { content: ""; position: absolute; inset: auto -10% -60% 40%; height: 120%; background: radial-gradient(closest-side, var(--glow), transparent); pointer-events: none; }
+.close h2 { margin: 0; max-width: 18ch; position: relative; }
+.close .cta { position: relative; margin-top: 8px; }
+
+/* ---------- footer ---------- */
+footer { border-top: 1px solid var(--line); padding: 56px 0 40px; color: var(--muted); font-size: .92rem; }
+.cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px; }
+.cols h3 { font: 600 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-bottom: 14px; }
+.cols li { margin-bottom: 9px; }
+.cols a:hover { color: var(--text); }
+.legal { margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--faint); font-size: .85rem; }
+
+/* ---------- concept notes ---------- */
+.notes { position: fixed; right: 18px; bottom: 18px; z-index: 30; max-width: min(420px, calc(100vw - 36px)); }
+.notes summary { list-style: none; cursor: pointer; margin-left: auto; width: max-content; display: flex; align-items: center; gap: 8px; background: var(--text); color: var(--bg); font-weight: 600; font-size: .88rem; padding: 11px 16px; border-radius: 999px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .5); }
+.notes summary::-webkit-details-marker { display: none; }
+.notes .panel { margin-top: 10px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 20px; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .55); font-size: .9rem; max-height: min(70vh, 560px); overflow: auto; }
+.notes h3 { margin-bottom: 12px; }
+.notes table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-variant-numeric: tabular-nums; }
+.notes th, .notes td { text-align: left; padding: 7px 0; border-bottom: 1px solid var(--line); font-weight: 400; }
+.notes th { color: var(--faint); font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.notes td:not(:first-child), .notes th:not(:first-child) { text-align: right; padding-left: 12px; white-space: nowrap; }
+.notes td:last-child { color: var(--accent-text); font-weight: 600; }
+.notes li { position: relative; padding-left: 16px; margin-bottom: 8px; color: var(--muted); }
+.notes li::before { content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-text); }
+.notes small { color: var(--faint); display: block; margin-top: 12px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 980px) {
+  .hero .wrap, .vision .wrap, .faq .wrap { grid-template-columns: 1fr; }
+  .faq .side { position: static; }
+  .caps { grid-template-columns: repeat(2, 1fr); }
+  .flow { grid-template-columns: 1fr; }
+  .flow li { padding: 0 0 26px 30px; border-top: 0; border-left: 1px solid var(--line-strong); }
+  .flow li::before { top: 2px; left: -6px; }
+  .flow li:last-child { padding-bottom: 0; }
+  .cols { grid-template-columns: repeat(2, 1fr); }
+  .case, .case.wide, .case:nth-child(n+6) { grid-column: span 3; }
+}
+@media (max-width: 720px) {
+  nav.main { display: none; }
+  .bar { gap: 12px; }
+  .tools { margin-left: auto; }
+  .case, .case.wide, .case:nth-child(n+6) { grid-column: 1 / -1; min-height: 0; }
+  .caps { grid-template-columns: 1fr; }
+  .ribbon .wrap { justify-content: flex-start; }
+  details.q p { padding-right: 0; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="ribbon"><div class="wrap">
+  <span><b>Design direction for yieldlyx.org.</b> A concept, not the live site. All text is taken from the current homepage, unchanged.</span>
+  <a href="#notes" id="open-notes">What changed and why</a>
+</div></div>
+
+<header><div class="wrap bar">
+  <a class="logo" href="#top" aria-label="YieldlyX, home">
+    <svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><path d="M4 3.5 22 22.5" stroke="var(--blue)" stroke-width="4.2" stroke-linecap="round"/><path d="M22 3.5 13.9 12" stroke="var(--accent-text)" stroke-width="4.2" stroke-linecap="round"/><path d="M4 22.5l5.2-5.5" stroke="var(--accent-text)" stroke-width="4.2" stroke-linecap="round"/></svg>
+    YieldlyX
+  </a>
+  <nav class="main" aria-label="Main">
+    <a href="#capabilities">Capabilities</a>
+    <a href="#use-cases">Use cases</a>
+    <a href="#delivery">Delivery</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="tools">
+    <button class="theme" id="theme" type="button" aria-label="Switch to light theme" title="Switch theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+    </button>
+    <a class="btn btn-primary" href="mailto:contact@yieldlyx.org">Contact us</a>
+  </div>
+</div></header>
+
+<main id="main">
+<section class="hero" id="top"><div class="wrap">
+  <div>
+    <p class="eyebrow">AI product studio</p>
+    <h1>AI <em>On Demand</em></h1>
+    <p class="lede">YieldlyX makes custom AI and LLM products available on demand. We exist because practical, production-ready intelligence is the foundation of faster teams, stronger products, and healthier businesses.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="mailto:contact@yieldlyx.org">Contact us
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <a class="btn btn-ghost" href="#capabilities">Our services</a>
+    </div>
+    <div class="proof">
+      <div><strong>48+</strong><span>projects delivered</span></div>
+      <div><strong>10+</strong><span>industries</span></div>
+      <div><strong>Weeks</strong><span>from call to pilot</span></div>
+    </div>
+  </div>
+
+  <figure class="board" aria-label="How a project moves from discovery to scale">
+    <div class="board-head"><b>From pilot to production</b><span class="pill"><i></i>Build</span></div>
+    <ol class="steps">
+      <li class="done"><span class="dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.5 6.2 2.3 2.3 4.7-5"/></svg></span><span><b>Discovery</b><small>Goals, users, data sources, and success metrics.</small></span><time>Week 1</time></li>
+      <li class="done"><span class="dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m2.5 6.2 2.3 2.3 4.7-5"/></svg></span><span><b>Prototype</b><small>Working pilot to validate before scaling spend.</small></span><time>Weeks 2-4</time></li>
+      <li class="now"><span class="dot"></span><span><b>Build</b><small>Weekly demos, LLM features, ML, integrations, UX.</small></span><time>Sprints</time><span class="meter"><i></i></span></li>
+      <li class="todo"><span class="dot"></span><span><b>Deploy</b><small>Production rollout, monitoring, and handoff docs.</small></span><time>Launch</time></li>
+      <li class="todo"><span class="dot"></span><span><b>Scale</b><small>Tuning, eval improvements, and team enablement.</small></span><time>Ongoing</time></li>
+    </ol>
+    <div class="chips"><span>Evals</span><span>Monitoring</span><span>Governance</span><span>Your cloud, your data</span></div>
+  </figure>
+</div></section>
+
+<section id="capabilities"><div class="wrap">
+  <div class="head"><p class="eyebrow">Capabilities</p><h2>Built for production, not demos</h2></div>
+  <ul class="caps">
+    <li><i>01</i><h3>Focused</h3><p>Scoped to your use case.</p></li>
+    <li><i>02</i><h3>Highly localized</h3><p>Built for your users, data, and workflows.</p></li>
+    <li><i>03</i><h3>Configurable</h3><p>Adjust models and prompts.</p></li>
+    <li><i>04</i><h3>Flexible</h3><p>From pilot to production without rewrites.</p></li>
+    <li><i>05</i><h3>On demand</h3><p>Start with a pilot in weeks.</p></li>
+    <li><i>06</i><h3>Easy to use</h3><p>From discovery call to shipped software.</p></li>
+    <li><i>07</i><h3>Production-grade</h3><p>Evals, monitoring, governance.</p></li>
+    <li><i>08</i><h3>Uniform</h3><p>Full-stack delivery, not demo-only code.</p></li>
+    <li><i>09</i><h3>Adaptive</h3><p>Iterate as requirements evolve.</p></li>
+    <li><i>10</i><h3>Dynamic</h3><p>Relocate effort as priorities shift.</p></li>
+    <li><i>11</i><h3>Your infrastructure</h3><p>Your cloud, your data.</p></li>
+    <li><i>12</i><h3>No vendor lock-in</h3><p>Integrate with systems you already run.</p></li>
+  </ul>
+</div></section>
+
+<section class="soft" id="use-cases"><div class="wrap">
+  <div class="head"><p class="eyebrow">Use cases</p><h2>What's possible with custom AI?</h2></div>
+  <div class="cases">
+    <article class="case wide"><span class="tag">Enterprise</span><h3>Rollouts your IT team can approve</h3><p>Governed rollouts, SSO, audit trails, and phased delivery your IT team can approve.</p></article>
+    <article class="case wide"><span class="tag">Startups</span><h3>Ship fast, learn fast</h3><p>Focused MVPs and pilots, ship fast, learn fast, without overbuilding.</p></article>
+    <article class="case"><h3>LLM products</h3><p>Copilots, assistants, and document intelligence wired to your knowledge base.</p></article>
+    <article class="case"><h3>ML pipelines</h3><p>Training, evaluation, and MLOps so models stay accurate in production.</p></article>
+    <article class="case"><h3>Integration</h3><p>APIs, workflows, and internal tools connected to CRMs, ERPs, and custom backends.</p></article>
+    <article class="case"><h3>Consulting</h3><p>Strategy, roadmaps, and use-case prioritization before code is written.</p></article>
+    <article class="case"><h3>Security</h3><p>Least-privilege access, documented data flows, and responsible AI practices.</p></article>
+  </div>
+</div></section>
+
+<section class="vision" id="vision"><div class="wrap">
+  <div class="head"><p class="eyebrow">Vision</p><h2>The Big Picture</h2></div>
+  <blockquote>
+    <p>Software is eating the world, and AI is reshaping how every product is built, sold, and operated.</p>
+    <p>Most teams still struggle to move from experiments to production. Pilots stall, governance blocks launches, and integrations never finish.</p>
+    <p>YieldlyX is creating a new category of AI product studio, strategy, engineering, and delivery in one team that ships software enterprises and startups can actually run.</p>
+  </blockquote>
+</div></section>
+
+<section class="soft" id="delivery"><div class="wrap">
+  <div class="head"><p class="eyebrow">Delivery</p><h2>Our delivery model scales with your ambitions</h2></div>
+  <ol class="flow">
+    <li><time>Week 1</time><h3>Discovery</h3><p>Goals, users, data sources, and success metrics.</p></li>
+    <li><time>Weeks 2-4</time><h3>Prototype</h3><p>Working pilot to validate before scaling spend.</p></li>
+    <li><time>Sprints</time><h3>Build</h3><p>Weekly demos, LLM features, ML, integrations, UX.</p></li>
+    <li><time>Launch</time><h3>Deploy</h3><p>Production rollout, monitoring, and handoff docs.</p></li>
+    <li><time>Ongoing</time><h3>Scale</h3><p>Tuning, eval improvements, and team enablement.</p></li>
+  </ol>
+  <p class="note">We maintain strict security and governance practices for enterprise clients. <a href="#faq">Learn more</a></p>
+</div></section>
+
+<section class="faq" id="faq"><div class="wrap">
+  <div class="side">
+    <p class="eyebrow">FAQ</p>
+    <h2>Frequently Asked Questions</h2>
+    <p class="lede">Share your goal, timeline, and any constraints. We'll reply with next steps.</p>
+    <a class="btn btn-ghost" href="mailto:contact@yieldlyx.org">contact@yieldlyx.org</a>
+  </div>
+  <div class="qa">
+    <details class="q" open><summary>What does YieldlyX do?</summary><p>YieldlyX is an AI-focused software studio. We help enterprises and startups design, build, and ship custom AI and LLM products, from early strategy through production deployment and integration with your existing tools.</p></details>
+    <details class="q"><summary>What services do you offer?</summary><p>Four core areas: custom AI and LLM product development, AI consulting and strategy, ML and data engineering, and enterprise AI integration (APIs, workflows, and internal tools). Most projects combine several of these.</p></details>
+    <details class="q"><summary>Do you work with startups and enterprises?</summary><p>Yes, both. Startups often need a focused MVP or pilot in weeks; enterprises need governance, security review, and phased rollouts. We tailor scope and process to your stage and constraints.</p></details>
+    <details class="q"><summary>How is YieldlyX different from a generic dev shop?</summary><p>We specialize in AI end-to-end, not just wrapping an API call. That means strategy, evaluation, data pipelines, UX for AI products, and integration with your stack. You get a small, senior team that ships, not a slide deck.</p></details>
+    <details class="q"><summary>What kinds of AI products have you built?</summary><p>We've delivered 48+ projects across 10+ industries, internal copilots, document intelligence, workflow automation, customer-facing assistants, and custom ML models. Every engagement starts with your data and constraints, not a template.</p></details>
+    <details class="q"><summary>How do projects typically start?</summary><p>Most begin with a discovery call: goals, users, data sources, and success metrics. We then propose a phased plan, often a short discovery sprint, a prototype, and production build, so you can validate before scaling spend.</p></details>
+    <details class="q"><summary>Do you use our data securely?</summary><p>Yes. We follow least-privilege access, encrypted channels, and your compliance requirements where applicable. We do not train on your proprietary data without explicit agreement. Details are covered in our privacy policy and project contracts.</p></details>
+    <details class="q"><summary>Can you integrate with our existing systems?</summary><p>That's a core part of what we do, REST and GraphQL APIs, SSO, CRMs, ticketing, data warehouses, and custom backends. AI only creates value when it fits how your team already works.</p></details>
+    <details class="q"><summary>What is your tech stack?</summary><p>We choose tools per project, common choices include Python, TypeScript, cloud ML platforms, vector databases, and leading LLM providers. We prioritize maintainability and what your team can operate after handoff.</p></details>
+    <details class="q"><summary>How do we get started?</summary><p>Email us at <a href="mailto:contact@yieldlyx.org">contact@yieldlyx.org</a> or use the contact page. Share your goal, timeline, and any constraints. We'll reply with next steps, usually a short call to see if we're a good fit.</p></details>
+  </div>
+</div></section>
+
+<section class="close"><div class="wrap">
+  <div class="card">
+    <p class="eyebrow">Join us</p>
+    <h2>We're building the future of AI products</h2>
+    <div class="cta">
+      <a class="btn btn-primary" href="mailto:contact@yieldlyx.org">Contact us</a>
+      <a class="btn btn-ghost" href="mailto:contact@yieldlyx.org">Join us</a>
+    </div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="cols">
+    <div>
+      <a class="logo" href="#top"><svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><path d="M4 3.5 22 22.5" stroke="var(--blue)" stroke-width="4.2" stroke-linecap="round"/><path d="M22 3.5 13.9 12" stroke="var(--accent-text)" stroke-width="4.2" stroke-linecap="round"/><path d="M4 22.5l5.2-5.5" stroke="var(--accent-text)" stroke-width="4.2" stroke-linecap="round"/></svg>YieldlyX</a>
+      <p style="margin-top:14px;max-width:30ch">AI product development for enterprise and startups.</p>
+    </div>
+    <div><h3>About</h3><ul><li><a href="#vision">Our Story</a></li><li><a href="mailto:contact@yieldlyx.org">Contact</a></li></ul></div>
+    <div><h3>Services</h3><ul><li><a href="#use-cases">Custom AI &amp; LLM</a></li><li><a href="#use-cases">AI Consulting &amp; Strategy</a></li><li><a href="#use-cases">ML &amp; Data Engineering</a></li><li><a href="#use-cases">Enterprise Integration</a></li></ul></div>
+    <div><h3>Resources</h3><ul><li><a href="#faq">FAQ</a></li><li><a href="mailto:contact@yieldlyx.org">Customer Support</a></li><li><a href="mailto:contact@yieldlyx.org">Share Feedback</a></li></ul></div>
+    <div><h3>Company</h3><ul><li><a href="#capabilities">What We Build</a></li><li><a href="mailto:contact@yieldlyx.org">Work With Us</a></li><li><a href="#top">Privacy Policy</a></li><li><a href="#top">Terms of Service</a></li></ul></div>
+  </div>
+  <div class="legal"><span>&copy; 2026 YCSLINT. All rights reserved.</span><span>Concept layout by Eliezer. Not affiliated with or published by YieldlyX.</span></div>
+</div></footer>
+
+<details class="notes" id="notes">
+  <summary>Concept notes</summary>
+  <div class="panel">
+    <h3>What changed, measured</h3>
+    <table>
+      <tr><th>First load</th><th>Live today</th><th>This concept</th></tr>
+      <tr><td>Transferred</td><td>7.9 MB</td><td id="n-size">under 60 KB</td></tr>
+      <tr><td>Requests</td><td>42</td><td>1</td></tr>
+      <tr><td>Hero media</td><td>7.2 MB video</td><td>0, built in CSS</td></tr>
+      <tr><td>Icon font</td><td>131 KB</td><td>0, inline SVG</td></tr>
+      <tr><td>Light theme</td><td>none</td><td>yes</td></tr>
+    </table>
+    <ul>
+      <li>The looping 1080p hero video is 92% of the page weight and shows a car interior. The hero now shows your own delivery model instead, and costs nothing to load.</li>
+      <li>Dark and light themes share one token set (about 20 CSS variables). The choice is saved, follows the system when nothing is saved, and is applied before first paint, so reloads do not flash. Try the button in the header, then reload.</li>
+      <li>Twelve capabilities read as one scannable grid instead of six boxes with two ideas each. Use cases get a hierarchy: who you serve first, what you build second.</li>
+      <li>The FAQ uses native disclosure elements: keyboard and screen-reader support with no script.</li>
+      <li>With JavaScript off the page still works in full, in the dark theme. Only switching themes needs script.</li>
+      <li>Type here is the system font, to keep the concept in one file. A production build keeps Plus Jakarta Sans and Syne, subset and self-hosted.</li>
+    </ul>
+    <small>Live numbers: yieldlyx.org home, desktop Chrome, cold cache, 24 Nov 2026. Words on this page are yours and unchanged; only headings on the two large use-case cards were added.</small>
+  </div>
+</details>
+
+<script>
+(function () {
+  var root = document.documentElement, button = document.getElementById('theme');
+  function label() { button.setAttribute('aria-label', 'Switch to ' + (root.dataset.theme === 'dark' ? 'light' : 'dark') + ' theme'); }
+  button.addEventListener('click', function () {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('yx-theme', root.dataset.theme); } catch (e) {}
+    label();
+  });
+  label();
+  document.getElementById('open-notes').addEventListener('click', function (event) {
+    event.preventDefault();
+    document.getElementById('notes').open = true;
+  });
+  // Report this page's real transfer size in the notes, when the browser exposes it.
+  addEventListener('load', function () {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (nav && nav.transferSize) document.getElementById('n-size').textContent = Math.max(1, Math.round(nav.transferSize / 1024)) + ' KB';
+  });
+})();
+</script>
+</body>
+</html>
