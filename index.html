@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>eliezercombi — Telegram mini apps, bots and landing pages</title>
-  <meta name="description" content="Small software, shipped fast: Telegram mini apps and bots, landing pages, scrapers and automation. Fixed price, working demo before payment, USDT or USDC.">
+  <title>eliezercombi — landing pages, redesigns and the code behind them</title>
+  <meta name="description" content="Interfaces and small software, shipped fast: landing pages and redesigns as working code, back-end in Go, Python and TypeScript, bots and automations. Fixed price, working demo before payment, USDT or USDC.">
   <meta name="theme-color" content="#0e0f11">
   <style>
     :root {
@@ -120,8 +120,8 @@
     <main id="top">
       <div class="hero">
         <p class="avail"><b></b> Taking small projects this week</p>
-        <h1>Small software, <span>shipped fast.</span></h1>
-        <p class="lede">I build <strong>Telegram mini apps and bots, landing pages, scrapers and automations</strong>. Fixed price, a working demo before you pay anything, and payment in USDT or USDC.</p>
+        <h1>Interfaces and small software, <span>shipped fast.</span></h1>
+        <p class="lede">I design and build <strong>landing pages and redesigns as working code</strong>, and the back-end behind them in Go, Python and TypeScript. Bots, mini apps and automations too. Fixed price, a working demo before you pay anything, and payment in USDT or USDC.</p>
         <div class="actions">
           <a class="btn btn--main" href="https://t.me/iiillliiiliiili">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.6 11.3 20.4 4.1c.8-.3 1.5.4 1.3 1.2l-3 14.2c-.2.9-1.2 1.2-1.9.7l-4.6-3.4-2.5 2.4c-.4.4-1.1.1-1.1-.5v-4.1l8.1-7.4-10 6.1-4.2-1.3c-.9-.3-.9-1.4.1-1.7Z"/></svg>
@@ -133,21 +133,10 @@
 
       <section id="work">
         <p class="label">Work</p>
-        <h2>Three demos you can click through.</h2>
-        <p class="note">These are self-initiated pieces, built to show how I work. They are not client projects. Each one is live, and the source is on GitHub.</p>
+        <h2>Five pieces you can check yourself.</h2>
+        <p class="note">These are self-initiated pieces, built to show how I work. They are not client projects. Each one is live or recorded, and the source is on GitHub.</p>
 
         <div class="work">
-          <article class="case">
-            <div>
-              <p class="case__kind">Telegram mini app + bot</p>
-              <h3>Brew Bar: order ahead from a chat</h3>
-              <p>A complete ordering flow: catalogue, options that change the price, cart and checkout. It follows the user's Telegram theme, uses the native main button and haptics, and the bot re-prices every order on the server.</p>
-              <ul class="facts"><li>No framework, 12 KB gzipped</li><li>Stars and TON checkout</li><li>initData verified with HMAC</li><li>Node bot, zero dependencies</li></ul>
-              <div class="links"><a href="brew-bar/">Open the demo</a><a href="https://github.com/eliezercombi/tma-shop">Source</a></div>
-            </div>
-            <div class="case__show"><div class="phone"><iframe src="brew-bar/" title="Brew Bar mini app demo" loading="lazy"></iframe></div></div>
-          </article>
-
           <article class="case">
             <div>
               <p class="case__kind">Landing page</p>
@@ -162,6 +151,17 @@
                 <div class="browser__view" id="view"><iframe src="landing/" title="Tally landing page demo" loading="lazy" tabindex="-1"></iframe></div>
               </div>
             </div>
+          </article>
+
+          <article class="case">
+            <div>
+              <p class="case__kind">Telegram mini app + bot</p>
+              <h3>Brew Bar: order ahead from a chat</h3>
+              <p>A complete ordering flow: catalogue, options that change the price, cart and checkout. It follows the user's Telegram theme, uses the native main button and haptics, and the bot re-prices every order on the server.</p>
+              <ul class="facts"><li>No framework, 12 KB gzipped</li><li>Stars and TON checkout</li><li>initData verified with HMAC</li><li>Node bot, zero dependencies</li></ul>
+              <div class="links"><a href="brew-bar/">Open the demo</a><a href="https://github.com/eliezercombi/tma-shop">Source</a></div>
+            </div>
+            <div class="case__show"><div class="phone"><iframe src="brew-bar/" title="Brew Bar mini app demo" loading="lazy"></iframe></div></div>
           </article>
 
           <article class="case">
@@ -185,6 +185,28 @@
 <span class="c">381 posts scanned, 8 matched, 0 new</span></pre></div>
             </div>
           </article>
+
+          <article class="case">
+            <div>
+              <p class="case__kind">App for smart glasses + relay server</p>
+              <h3>Aside: your task list in the corner of your eye</h3>
+              <p>Today's tasks from a Notion database on Even G2 glasses: one per card, done or moved with a tap, new ones captured by voice and saved only after you confirm. A small relay server talks to Notion and to a language model, and falls back to plain rules when the model is unavailable.</p>
+              <ul class="facts"><li>TypeScript, 48 tests</li><li>Zero-dependency Node relay</li><li>End-to-end tests over real HTTP</li><li>Recorded in the device simulator</li></ul>
+              <div class="links"><a href="demos/aside.mp4">Watch the demo</a><a href="https://github.com/eliezercombi/aside">Source</a></div>
+            </div>
+            <div class="case__show"><video controls preload="metadata" style="width:100%;border-radius:14px;background:#000;aspect-ratio:16/9" aria-label="Aside demo video"><source src="demos/aside.mp4" type="video/mp4"></video></div>
+          </article>
+
+          <article class="case">
+            <div>
+              <p class="case__kind">App for smart glasses + market data</p>
+              <h3>Riskline: stop, target and P&amp;L at a glance</h3>
+              <p>A trading companion for the same glasses. Live prices, a gauge that shows where the price sits between your stop and your target, the actions that cut risk listed first, and a confirmation that spells out stop, target and risk before anything is sent. Runs on paper trading with live public market data.</p>
+              <ul class="facts"><li>TypeScript, 48 tests</li><li>Live public market data</li><li>Voice opens a confirmation, never an order</li><li>Recorded in the device simulator</li></ul>
+              <div class="links"><a href="demos/riskline.mp4">Watch the demo</a><a href="https://github.com/eliezercombi/riskline">Source</a></div>
+            </div>
+            <div class="case__show"><video controls preload="metadata" style="width:100%;border-radius:14px;background:#000;aspect-ratio:16/9" aria-label="Riskline demo video"><source src="demos/riskline.mp4" type="video/mp4"></video></div>
+          </article>
         </div>
       </section>
 
@@ -193,10 +215,11 @@
         <h2>Priced before I start.</h2>
         <p class="note">Starting prices for typical scope. You get an exact quote after a short brief, and it does not change unless the scope does.</p>
         <ul class="offer">
-          <li><h3>Telegram bot</h3><p>Menus, forms, payments, admin commands, broadcast, a database behind it.</p><span>from 90 USDT</span></li>
-          <li><h3>Telegram mini app</h3><p>Shop, booking, game or dashboard inside Telegram, with a bot and backend.</p><span>from 300 USDT</span></li>
           <li><h3>Landing page</h3><p>Design and code, responsive, fast, ready to deploy on your domain.</p><span>from 150 USDT</span></li>
-          <li><h3>Scraper or automation</h3><p>Collect data, watch for changes, sync two tools, get alerts in a chat.</p><span>from 60 USDT</span></li>
+          <li><h3>Redesign</h3><p>Your existing site with a clearer layout, dark and light themes and a lighter page, with a before and after report.</p><span>from 150 USDT</span></li>
+          <li><h3>Back-end or API</h3><p>Go, Python or TypeScript: an endpoint, a service, an integration between two tools, with tests.</p><span>from 60 USDT</span></li>
+          <li><h3>Telegram bot or mini app</h3><p>Menus, forms, payments, a shop or a dashboard inside Telegram, with a database behind it.</p><span>from 90 USDT</span></li>
+          <li><h3>Data collection or automation</h3><p>Collect public data, watch for changes, sync two tools, get alerts in a chat.</p><span>from 60 USDT</span></li>
           <li><h3>Fix or small feature</h3><p>A bug in an existing bot, script or front end, or one more screen.</p><span>from 25 USDT</span></li>
         </ul>
       </section>
@@ -206,7 +229,7 @@
         <h2>You pay for something you have already seen working.</h2>
         <ol class="steps">
           <li><h3>Brief</h3><p>Tell me what you need in a few lines, or send a link to something similar. I reply with a fixed price and a date.</p></li>
-          <li><h3>Working demo</h3><p>For small jobs you get a live demo first, usually within a day or two. No prepayment.</p></li>
+          <li><h3>Working demo</h3><p>For small jobs you get a live demo first, usually within a day or two. No prepayment. Larger jobs: half once you approve the direction.</p></li>
           <li><h3>Payment and handoff</h3><p>If it does the job, you pay in USDT or USDC and get the source and the deploy steps.</p></li>
         </ol>
       </section>
