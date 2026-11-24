@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Landing page kit for Telegram Mini Apps</title>
+  <meta name="description" content="A free one-page landing template for Telegram Mini Apps and bots, a paid kit with colour presets, a pre-launch page and a launch checklist, and a done-for-you option.">
+  <meta property="og:title" content="Landing page kit for Telegram Mini Apps">
+  <meta property="og:description" content="Free template, paid kit, or done for you in 24 hours.">
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (e) {}
+      var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    })();
+  </script>
+  <link rel="stylesheet" href="../miniapp-landing/styles.css">
+  <style>
+    .hero__in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .frame { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--surface); }
+    .frame__bar { display: flex; align-items: center; gap: 7px; padding: 12px 14px; border-bottom: 1px solid var(--line); color: var(--faint); font-size: .84rem; }
+    .frame__bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+    .frame__bar span { margin-left: 8px; }
+    .frame__view { height: 460px; overflow: hidden; }
+    .frame iframe { display: block; width: 200%; height: 920px; border: 0; transform: scale(.5); transform-origin: 0 0; }
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; align-items: stretch; }
+    .plan { display: flex; flex-direction: column; gap: 14px; padding: 30px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); }
+    .plan--main { border-color: var(--accent); box-shadow: var(--shadow); }
+    .plan .plan__price { font-size: 2.3rem; line-height: 1.1; font-weight: 780; letter-spacing: -.03em; color: var(--text); }
+    .plan__price small { font-size: 1rem; font-weight: 500; color: var(--faint); letter-spacing: 0; }
+    .plan ul { display: grid; gap: 10px; color: var(--muted); font-size: .98rem; }
+    .plan li { padding-left: 24px; position: relative; }
+    .plan li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 10px; height: 6px; border-left: 2px solid var(--accent-text); border-bottom: 2px solid var(--accent-text); transform: rotate(-45deg); }
+    .plan .btn { margin-top: auto; }
+    .plan p { color: var(--muted); font-size: .98rem; }
+    .buy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; }
+    .note { margin-top: 28px; max-width: 70ch; color: var(--faint); font-size: .95rem; }
+    .note a { color: var(--accent-text); font-weight: 650; text-decoration: underline; text-underline-offset: 3px; }
+    code { padding: 2px 6px; border-radius: 6px; background: var(--band); border: 1px solid var(--line); font-size: .9em; }
+    @media (max-width: 920px) { .plans, .buy, .hero__in { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <div class="wrap top__in">
+      <a class="brand" href="../" aria-label="eliezercombi, home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M10 11h12M10 16h8M10 21h12"/></svg>
+        eliezercombi
+      </a>
+      <nav class="top__nav" aria-label="Main">
+        <a href="#plans">What you get</a>
+        <a href="#buy">How to buy</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="top__tools">
+        <button class="theme" id="theme" type="button" aria-label="Switch theme">
+          <svg class="theme__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+          <svg class="theme__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+        </button>
+        <a class="btn btn--tg btn--sm" href="../miniapp-landing/">Live demo</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero__in">
+        <div class="hero__copy">
+          <p class="pill"><span></span> For Mini Apps and bots</p>
+          <h1>A landing page for your Mini App, today.</h1>
+          <p class="lede" style="max-width:44ch">One page that says what your app does and opens it in Telegram with one button. Plain HTML and CSS, 21 KB, light and dark, no build step.</p>
+          <div class="cta">
+            <a class="btn btn--tg" href="../miniapp-landing/">Open the live demo</a>
+            <a class="btn btn--ghost" href="https://github.com/eliezercombi/eliezercombi.github.io/tree/main/miniapp-landing">Get the free template</a>
+          </div>
+        </div>
+        <div class="frame">
+          <div class="frame__bar"><i></i><i></i><i></i><span>your-app.example</span></div>
+          <div class="frame__view"><iframe src="../miniapp-landing/" title="Template preview" loading="lazy" tabindex="-1"></iframe></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="plans">
+      <div class="wrap">
+        <p class="label">What you get</p>
+        <h2>Free to start. Pay only for the parts that save you time.</h2>
+        <div class="plans">
+          <article class="plan">
+            <h3>Template</h3>
+            <p class="plan__price">Free <small>MIT</small></p>
+            <ul>
+              <li>The landing page: hero with a live phone preview, steps, features, FAQ, final call to action</li>
+              <li>Light and dark themes, no flash on load</li>
+              <li>Text contrast checked to WCAG AA</li>
+              <li>Guide with the Telegram link formats</li>
+            </ul>
+            <a class="btn btn--ghost" href="https://github.com/eliezercombi/eliezercombi.github.io/tree/main/miniapp-landing">Get it on GitHub</a>
+          </article>
+          <article class="plan plan--main">
+            <h3>Kit</h3>
+            <p class="plan__price">15 USDT <small>once</small></p>
+            <ul>
+              <li>Everything in the template</li>
+              <li>Seven brand colour presets, each in light and dark, all contrast-checked</li>
+              <li>A pre-launch page with a countdown and a "Join in Telegram" button</li>
+              <li>A share card in your colours for link previews</li>
+              <li>Launch checklist: BotFather settings, tracking with <code>startapp</code>, what to test</li>
+              <li>Use in any number of your own and client projects</li>
+            </ul>
+            <a class="btn btn--tg" href="#buy">Buy the kit</a>
+          </article>
+          <article class="plan">
+            <h3>Done for you</h3>
+            <p class="plan__price">49 USDT <small>in 24 hours</small></p>
+            <ul>
+              <li>Your texts, colours, logo and screenshots, put into the kit by me</li>
+              <li>Copy tightened so the first screen says what the app does</li>
+              <li>Live on your domain, or handed over as files</li>
+              <li>You see the finished page first and pay only if you want it</li>
+            </ul>
+            <a class="btn btn--ghost" href="#buy">Order a page</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="buy">
+      <div class="wrap">
+        <p class="label">How to buy</p>
+        <h2>Three messages, no checkout form.</h2>
+        <ol class="steps">
+          <li><i>1</i><h3>Write to me</h3><p>Discord <code>eliezercombi</code> or Telegram <a class="open" href="https://t.me/iiillliiiliiili" style="text-decoration:underline">@iiillliiiliiili</a>. Say "kit" or describe your app.</p></li>
+          <li><i>2</i><h3>Pay in USDT</h3><p>I send the address (TRC-20 or TON). For a done-for-you page you pay after you have seen it.</p></li>
+          <li><i>3</i><h3>Get the files</h3><p>I check the transfer by hand and send the kit, usually within minutes while I am online.</p></li>
+        </ol>
+        <p class="note">No refunds on the kit once the files are sent, because they cannot be returned; look at the <a href="../miniapp-landing/">live demo</a> and the <a href="https://github.com/eliezercombi/eliezercombi.github.io/tree/main/miniapp-landing">free template</a> first, they are the same page.</p>
+      </div>
+    </section>
+
+    <section class="band" id="faq">
+      <div class="wrap faq">
+        <div>
+          <p class="label">FAQ</p>
+          <h2>Before you ask.</h2>
+        </div>
+        <div class="faq__list">
+          <details open><summary>What is the difference between the template and the kit?</summary><p>The page is the same. The kit adds the things around it: colour presets, a pre-launch page, the share image and the checklist. If you are comfortable picking colours and writing a countdown yourself, the free template is enough.</p></details>
+          <details><summary>Do I need to know how to code?</summary><p>You edit text between HTML tags and replace one link. If that sounds like too much, the done-for-you option exists for that reason.</p></details>
+          <details><summary>Does it work for a bot without a Mini App?</summary><p>Yes. Point the button at <code>t.me/your_bot</code> and put a screenshot of the chat into the phone.</p></details>
+          <details><summary>Why USDT?</summary><p>It reaches me in minutes from anywhere, with no payment processor in between. Most people building on Telegram already have it.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <span>Made by Eliezer</span>
+      <nav aria-label="Footer"><a href="../">Other work</a><a href="https://github.com/eliezercombi">GitHub</a></nav>
+    </div>
+  </footer>
+
+  <script src="../miniapp-landing/script.js"></script>
+</body>
+</html>

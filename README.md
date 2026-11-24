@@ -7,6 +7,8 @@ Source of [eliezercombi.github.io](https://eliezercombi.github.io/): a one-file 
 | `index.html` | The portfolio page. One HTML file, no build step, no trackers. |
 | `landing/` | Tally, a concept landing page. Hand-written HTML and CSS with about 4 KB of JavaScript. |
 | `brew-bar/` | Build of the Telegram mini app from [tma-shop](https://github.com/eliezercombi/tma-shop). |
+| `miniapp-landing/` | A free landing page template for Telegram Mini Apps and bots: [demo](https://eliezercombi.github.io/miniapp-landing/), [guide](miniapp-landing/README.md). |
+| `kits/` | The page that describes the template, the paid kit and the done-for-you option. |
 
 Everything here is a self-initiated demo. Tally and Brew Bar are not real businesses.
 
