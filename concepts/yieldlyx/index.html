@@ -30,7 +30,7 @@
   --line-strong: #2d343b;
   --text: #f3f5f6;
   --muted: #a3abb3;
-  --faint: #6f7780;
+  --faint: #8b939c;
   --accent: #b7f13d;
   --accent-ink: #0d1503;
   --accent-text: #b7f13d;
@@ -56,7 +56,7 @@
   --line-strong: #cdd2c4;
   --text: #0f1214;
   --muted: #4a5259;
-  --faint: #7b838b;
+  --faint: #5d656d;
   --accent: #b2ee34;
   --accent-ink: #0d1503;
   --accent-text: #3b6500;
@@ -422,8 +422,12 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; color: var(--m
       <tr><td>Hero media</td><td>7.2 MB video</td><td>0, built in CSS</td></tr>
       <tr><td>Icon font</td><td>131 KB</td><td>0, inline SVG</td></tr>
       <tr><td>Light theme</td><td>none</td><td>yes</td></tr>
+      <tr><td>Largest Contentful Paint, mobile</td><td>2.2 s</td><td>0.8 s</td></tr>
+      <tr><td>Speed Index, mobile</td><td>2.1 s</td><td>0.8 s</td></tr>
+      <tr><td>Lighthouse performance, mobile</td><td>98</td><td>100</td></tr>
     </table>
     <ul>
+      <li>Your home page already scores 98 in Lighthouse, because the video starts after first paint. So the gain is not the score. It is 7.9 MB that every visitor no longer downloads, and the main content appearing in 0.8 s instead of 2.2 s on a phone.</li>
       <li>The looping 1080p hero video is 92% of the page weight and shows a car interior. The hero now shows your own delivery model instead, and costs nothing to load.</li>
       <li>Dark and light themes share one token set (about 20 CSS variables). The choice is saved, follows the system when nothing is saved, and is applied before first paint, so reloads do not flash. Try the button in the header, then reload.</li>
       <li>Twelve capabilities read as one scannable grid instead of six boxes with two ideas each. Use cases get a hierarchy: who you serve first, what you build second.</li>
@@ -431,7 +435,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; color: var(--m
       <li>With JavaScript off the page still works in full, in the dark theme. Only switching themes needs script.</li>
       <li>Type here is the system font, to keep the concept in one file. A production build keeps Plus Jakarta Sans and Syne, subset and self-hosted.</li>
     </ul>
-    <small>Live numbers: yieldlyx.org home, desktop Chrome, cold cache, 24 Nov 2026. Words on this page are yours and unchanged; only headings on the two large use-case cards were added.</small>
+    <small>Weights: yieldlyx.org home, desktop Chrome, cold cache, 24 Nov 2026. Timings and score: PageSpeed Insights, mobile, same day. Services, About and Contact are built from the same tokens and components. Words on this page are yours and unchanged; only headings on the two large use-case cards were added.</small>
   </div>
 </details>
 
@@ -449,6 +453,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; color: var(--m
     event.preventDefault();
     document.getElementById('notes').open = true;
   });
+  if (location.hash === '#notes') document.getElementById('notes').open = true;
   // Report this page's real transfer size in the notes, when the browser exposes it.
   addEventListener('load', function () {
     var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
